@@ -7,8 +7,8 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_PASSWORD: ${pass}
-      POSTGRES_DB: ${name}
-    container_name: otso_db
+      POSTGRES_PASSWORD: ${Password_bd}
+      POSTGRES_DB: ${Name_bd}
+    container_name: otzo_db
     volumes:
       - ./postgres:/var/lib/postgresql/data
