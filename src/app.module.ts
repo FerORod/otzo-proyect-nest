@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { EmployeesModule } from './employees/employees.module';
 import { ProductsModule } from './products/products.module';
+import { ProvidersModule } from './providers/providers.module';
 
 @Module({
   imports: [
@@ -12,8 +13,8 @@ import { ProductsModule } from './products/products.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.Host,
-      port: +(process.env.Porrt || 5432),
-      username: "postgres",
+      port: +(process.env.Port || 5432),
+      username: 'postgres',
       password: process.env.Password_bd,
       database: process.env.Name_bd,
       entities: [],
@@ -22,6 +23,7 @@ import { ProductsModule } from './products/products.module';
     }),
     EmployeesModule,
     ProductsModule,
+    ProvidersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
