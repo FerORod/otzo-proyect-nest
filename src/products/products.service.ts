@@ -24,15 +24,13 @@ export class ProductsService {
   }
 
   findOne(id: string) {
-    const product = this.productRepository.findOneBy({productId : id})
+    const product = this.productRepository.findOneBy({productId : id});
     if (!product) throw new NotFoundException;
     return product;
   }
 
   findByProvider(id: string) {
-    // const products = this.products.filter(product => product.provider === id);
-    // if (!products) throw new NotFoundException();
-    // return products;
+    return this.productRepository.findBy({provider : {providerId : id}});
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
@@ -46,6 +44,6 @@ export class ProductsService {
   }
 
   remove(id: string) {
-    return this.productRepository.delete({productId : id})
+    return this.productRepository.delete({productId : id});
   }
 }

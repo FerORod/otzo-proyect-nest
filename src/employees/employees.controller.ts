@@ -1,7 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+//Linea solo para quitar el error de multer, no se esta usando en el codigo pero es necesario para el FileInterceptor
+import { Multer } from 'multer';
 
 @Controller('employees')
 export class EmployeesController {
@@ -10,6 +13,13 @@ export class EmployeesController {
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadPhoto(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    return 'ok';
   }
 
   @Get()
