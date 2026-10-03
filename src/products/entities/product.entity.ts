@@ -14,5 +14,6 @@ export class Product {
     @ManyToOne(() => Provider, (provider) => provider.products, 
     //{eager: true}
     )
+    @JoinColumn({ name: 'providerId' })
         provider?: Provider;
 }
