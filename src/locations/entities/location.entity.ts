@@ -1,6 +1,7 @@
+import { Employee } from 'src/employees/entities/employee.entity';
 import { Manager } from 'src/managers/entities/manager.entity';
 import { Region } from 'src/regions/entities/region.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Location {
@@ -20,4 +21,7 @@ export class Location {
     @ManyToOne(() => Region, (region) => region.locations)
     @JoinColumn({ name: 'regionId' })
         region?: Region;
+
+    @OneToMany(() => Employee, (employee) => employee.location)
+        employees?: Employee[];
 }
