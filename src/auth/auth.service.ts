@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UnauthorizedException } from '@nestjs/common/exceptions';
+import { UnauthorizedException, NotFoundException } from '@nestjs/common/exceptions';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -40,5 +41,14 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
     return token;
   }
+
+  async updateUserRoles( userEmail: string, updateUserDto: UpdateUserDto){
+    const newUserData = await this.userRepository.preload({
+      userEmail: userEmail,
+      ...updateUserDto})
+      if(!newUserData)throw new NotFoundException('Usuario no encontrado');
+      this.userRepository.save(newUserData);
+      return newUserData;
+    }
 }
  

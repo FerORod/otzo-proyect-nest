@@ -22,7 +22,7 @@ export class EmployeesService {
   }
 
   findOne(id: string) {
-    const employee = this.employeeRepository.findOneBy({id : id});
+    const employee = this.employeeRepository.findOneBy({employeeId : id});
     if (!employee) throw new NotFoundException();
     return employee;
   }
@@ -39,7 +39,7 @@ export class EmployeesService {
 
   remove(id: string) {
     this.findOne(id)
-    this.employeeRepository.delete({id : id})
+    this.employeeRepository.delete({employeeId : id})
     return {message: `El objeto con id ${id} fue eliminado`}
   }
 }
