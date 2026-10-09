@@ -7,9 +7,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Multer } from 'multer';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiAuth } from 'src/auth/decorators/api.decorator';
 
+@ApiTags('Employees')
 @ApiAuth()
 @Controller('employees')
 export class EmployeesController {
