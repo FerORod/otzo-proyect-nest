@@ -4,7 +4,11 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: process.env.allowedOrigin,
+    }
+  });
   const config = new DocumentBuilder()
     .setTitle('Otzo API')
     .setDescription('The Otzo API description')
@@ -14,6 +18,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes( new ValidationPipe());
-  await app.listen(3000);
+  await app.listen(4000);
 }
 bootstrap();
